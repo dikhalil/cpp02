@@ -6,42 +6,41 @@
 /*   By: dikhalil <dikhalil@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 23:11:55 by dikhalil          #+#    #+#             */
-/*   Updated: 2025/10/28 14:00:41 by dikhalil         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:45:51 by dikhalil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Point.hpp"
 
-Fixed absFixed(const Fixed &num)
+static float floatAbs(float num)
 {
-    if (num < Fixed(0))
-        return (Fixed(0) - num);
+    if (num < 0)
+        return (num * -1);
     return (num);
 }
-
-Fixed triangleArea(Point const a, Point const b, Point const c)
+static float triangleArea(Point const a, Point const b, Point const c)
 {
-    Fixed A;
-    Fixed B;
-    Fixed C;
-    Fixed sum;
-    Fixed area;
+    float A;
+    float B;
+    float C;
+    float sum;
+    float area;
     
-    A = a.getX() * (b.getY() - c.getY());
-    B = b.getX() * (c.getY() - a.getY());
-    C = c.getX() * (a.getY() - b.getY());
+    A = a.getX().toFloat() * (b.getY().toFloat() - c.getY().toFloat());
+    B = b.getX().toFloat() * (c.getY().toFloat() - a.getY().toFloat());
+    C = c.getX().toFloat() * (a.getY().toFloat() - b.getY().toFloat());
 
     sum = A + B + C;
-    area = absFixed(sum) / Fixed(2);
+    area = floatAbs(sum) / 2;
     return (area);
 }
 
 bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
-    Fixed areaABC;
-    Fixed area1;
-    Fixed area2;
-    Fixed area3;
+    float areaABC;
+    float area1;
+    float area2;
+    float area3;
     
     areaABC = triangleArea(a, b, c);  
     area1 = triangleArea(point, b, c);  
