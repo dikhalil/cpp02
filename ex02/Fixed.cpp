@@ -6,7 +6,7 @@
 /*   By: dikhalil <dikhalil@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:40:54 by dikhalil          #+#    #+#             */
-/*   Updated: 2025/10/27 22:10:31 by dikhalil         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:38:16 by dikhalil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Fixed::Fixed(void) : _rawBits(0) {}
 
 Fixed::Fixed(const int num)
 {
-    _rawBits = num * (1 << _fractionalBits);
+    _rawBits = num << _fractionalBits;
 }
 
 Fixed::Fixed(const float num)
@@ -91,19 +91,34 @@ bool Fixed::operator!=(const Fixed &other) const
 
 Fixed Fixed::operator+(const Fixed &other) const
 {
-    return (Fixed(_rawBits + other._rawBits));
+    Fixed result;
+    
+    result.setRawBits(_rawBits + other._rawBits);
+    return (result);
 }
+
 Fixed Fixed::operator-(const Fixed &other) const
 {
-    return (Fixed(_rawBits - other._rawBits));
+    Fixed result;
+    
+    result.setRawBits(_rawBits - other._rawBits);
+    return (result);
 }
-Fixed Fixed::operator/(const Fixed &other) const
-{
-    return (Fixed(this->toFloat() / other.toFloat()));
-}
+
 Fixed Fixed::operator*(const Fixed &other) const
 {
-    return (Fixed(this->toFloat() * other.toFloat()));
+    Fixed result;
+    
+    result.setRawBits((_rawBits * other._rawBits) >> _fractionalBits);
+    return (result);
+}
+
+Fixed Fixed::operator/(const Fixed &other) const
+{
+    Fixed result;
+    
+    result.setRawBits((_rawBits << _fractionalBits) / other._rawBits);
+    return (result);
 }
 
 Fixed &Fixed::operator++(void)
@@ -111,17 +126,20 @@ Fixed &Fixed::operator++(void)
     _rawBits++;
     return (*this);
 }
+
 Fixed &Fixed::operator--(void)
 {
     _rawBits--;
     return (*this);
 }
+
 Fixed Fixed::operator++(int)
 {
     Fixed tmp(*this);
     _rawBits++;
     return (tmp);
 }
+
 Fixed Fixed::operator--(int)
 {
     Fixed tmp(*this);
@@ -133,6 +151,7 @@ const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
 {
     return (a < b ? a : b);
 }
+
 const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
 {
     return (a > b ? a : b);
@@ -141,6 +160,7 @@ Fixed &Fixed::min(Fixed &a, Fixed &b)
 {
     return (a < b ? a : b);
 }
+
 Fixed &Fixed::max(Fixed &a, Fixed &b)
 {
     return (a > b ? a : b);

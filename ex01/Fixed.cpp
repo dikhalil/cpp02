@@ -6,7 +6,7 @@
 /*   By: dikhalil <dikhalil@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:40:54 by dikhalil          #+#    #+#             */
-/*   Updated: 2025/10/27 19:56:09 by dikhalil         ###   ########.fr       */
+/*   Updated: 2025/11/22 23:23:28 by dikhalil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ Fixed::Fixed(void) : _rawBits(0)
 Fixed::Fixed(const int num)
 {
     std::cout << "Int constructor called" << std::endl;
-    _rawBits = num * (1 << _fractionalBits);
+    _rawBits = num << _fractionalBits;
 }
 
 Fixed::Fixed(const float num)

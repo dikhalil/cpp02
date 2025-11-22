@@ -6,7 +6,7 @@
 /*   By: dikhalil <dikhalil@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:40:48 by dikhalil          #+#    #+#             */
-/*   Updated: 2025/10/27 18:25:12 by dikhalil         ###   ########.fr       */
+/*   Updated: 2025/11/22 21:40:07 by dikhalil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ class Fixed
 };
 
 std::ostream& operator<<(std::ostream &cout, const Fixed &obj);
+
 #endif
